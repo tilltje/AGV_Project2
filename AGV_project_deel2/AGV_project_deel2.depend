@@ -1,0 +1,49 @@
+# depslib dependency file v1.0
+1781262321 source:c:\users\tillb\documents\programmer_hhs\avg_v2_project\agv_project2\agv_project_deel2\fuse.c
+	<avr/io.h>
+
+1781873845 source:c:\users\tillb\documents\programmer_hhs\avg_v2_project\agv_project2\agv_project_deel2\main.c
+	<avr/io.h>
+	<util/delay.h>
+	"init.h"
+	"us_sensor_lib.h"
+	"motor_lib.h"
+	"navigatie_lib.h"
+
+1781867497 source:c:\users\tillb\documents\programmer_hhs\avg_v2_project\agv_project2\agv_project_deel2\init.c
+	"init.h"
+
+1781871304 c:\users\tillb\documents\programmer_hhs\avg_v2_project\agv_project2\agv_project_deel2\init.h
+	<avr/io.h>
+	<util/delay.h>
+
+1781874734 c:\users\tillb\documents\programmer_hhs\avg_v2_project\agv_project2\agv_project_deel2\us_sensor_lib.h
+	<avr/io.h>
+	<util/delay.h>
+	<stdint.h>
+	"init.h"
+
+1781874760 source:c:\users\tillb\documents\programmer_hhs\avg_v2_project\agv_project2\agv_project_deel2\us_sensor_lib.c
+	"us_sensor_lib.h"
+
+1781873845 c:\users\tillb\documents\programmer_hhs\avg_v2_project\agv_project2\agv_project_deel2\motor_lib.h
+	<avr/io.h>
+	<util/delay.h>
+	"init.h"
+	"us_sensor_lib.h"
+
+1781873845 source:c:\users\tillb\documents\programmer_hhs\avg_v2_project\agv_project2\agv_project_deel2\motor_lib.c
+	"motor_lib.h"
+
+1781875288 c:\users\tillb\documents\programmer_hhs\avg_v2_project\agv_project2\agv_project_deel2\navigatie_lib.h
+	<avr/io.h>
+	<util/delay.h>
+	"init.h"
+	"us_sensor_lib.h"
+	"motor_lib.h"
+
+1781875496 source:c:\users\tillb\documents\programmer_hhs\avg_v2_project\agv_project2\agv_project_deel2\navigatie_lib.c
+	"navigatie_lib.h"
+
+1781872118 source:c:\users\tillb\documents\programmer_hhs\avg_v2_project\agv_project2\agv_project_deel2\communicatie_lib.c
+
