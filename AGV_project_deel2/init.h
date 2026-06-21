@@ -95,6 +95,7 @@
 #define ACK_AGV_PORT               PORTD
 
 /// FUNCTIONS ///
+void init_rfid_module(void);
 void init_us_sensor(void);
 void init_h_brug_dual(void);
 void init_communicatie(void);

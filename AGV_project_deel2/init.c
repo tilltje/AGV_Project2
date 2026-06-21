@@ -1,4 +1,23 @@
+#include <avr/io.h>
+#include <avr/interrupt.h>
+#include <util/delay.h>
+#include "communicatie_lib.h"
 #include "init.h"
+#include "motor_lib.h"
+#include "navigatie_lib.h"
+#include "rfid_module_lib.h"
+#include "us_sensor_lib.h"
+
+///deze interrupt is nieuw!
+ISR(INT0_vect) { //module heeft commando geacknowledged
+    NEXT_MOD_PORT &= ~(1 << NEXT_MOD);
+}
+
+void init_rfid_module(void) { // timer voor 2 sec stilstaan
+    TCCR1B |= (1 << CS12);
+    TCCR1B &= ~(1 << CS11);
+    TCCR1B &= ~(1 << CS10);
+}
 
 void init_us_sensor(void){
     //ULTRASOON Echo als INPUT configureren
@@ -62,11 +81,16 @@ void init_communicatie(void){
     MODNUMMER_PORT &= ~(1 << MODNUMMER);
     NEXT_MOD_PORT &= ~(1 << MODNUMMER);
     ACK_MOD_PORT &= ~(1 << ACK_MOD);
+
+    // EXTERNE INTERRUPT ACKNOWLEDGE VAN MODULE
+    EICRA |= (1 << ISC01) | (1 << ISC00); // interrupt 0 (pin 21), interrupt op rising edge
 }
 
 
 void init(void){
+    init_rfid_module();
     init_us_sensor();
     init_h_brug_dual();
     init_communicatie();
+    sei();
 }

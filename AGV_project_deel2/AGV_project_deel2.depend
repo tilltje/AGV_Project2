@@ -47,3 +47,110 @@
 
 1781872118 source:c:\users\tillb\documents\programmer_hhs\avg_v2_project\agv_project2\agv_project_deel2\communicatie_lib.c
 
+1782069029 source:c:\users\annev\documents\github\agv_project2\agv_project2\agv_project_deel2\communicatie_lib.c
+	<avr/io.h>
+	<avr/interrupt.h>
+	<util/delay.h>
+	"communicatie_lib.h"
+	"init.h"
+	"motor_lib.h"
+	"navigatie_lib.h"
+	"rfid_module_lib.h"
+	"us_sensor_lib.h"
+
+1782063710 source:c:\users\annev\documents\github\agv_project2\agv_project2\agv_project_deel2\fuse.c
+	<avr/io.h>
+
+1782069415 source:c:\users\annev\documents\github\agv_project2\agv_project2\agv_project_deel2\init.c
+	<avr/io.h>
+	<avr/interrupt.h>
+	<util/delay.h>
+	"communicatie_lib.h"
+	"init.h"
+	"motor_lib.h"
+	"navigatie_lib.h"
+	"rfid_module_lib.h"
+	"us_sensor_lib.h"
+
+1782065746 c:\users\annev\documents\github\agv_project2\agv_project2\agv_project_deel2\init.h
+	<avr/io.h>
+	<util/delay.h>
+
+1782064113 c:\users\annev\documents\github\agv_project2\agv_project2\agv_project_deel2\rfid_module_lib.h
+
+1782068590 source:c:\users\annev\documents\github\agv_project2\agv_project2\agv_project_deel2\motor_lib.c
+	<avr/io.h>
+	<avr/interrupt.h>
+	<util/delay.h>
+	"communicatie_lib.h"
+	"init.h"
+	"motor_lib.h"
+	"navigatie_lib.h"
+	"rfid_module_lib.h"
+	"us_sensor_lib.h"
+
+1782063710 c:\users\annev\documents\github\agv_project2\agv_project2\agv_project_deel2\motor_lib.h
+	<avr/io.h>
+	<util/delay.h>
+	"init.h"
+	"us_sensor_lib.h"
+
+1782063710 c:\users\annev\documents\github\agv_project2\agv_project2\agv_project_deel2\us_sensor_lib.h
+	<avr/io.h>
+	<util/delay.h>
+	<stdint.h>
+	"init.h"
+
+1782069044 source:c:\users\annev\documents\github\agv_project2\agv_project2\agv_project_deel2\navigatie_lib.c
+	<avr/io.h>
+	<avr/interrupt.h>
+	<util/delay.h>
+	"communicatie_lib.h"
+	"init.h"
+	"motor_lib.h"
+	"navigatie_lib.h"
+	"rfid_module_lib.h"
+	"us_sensor_lib.h"
+
+1782063710 c:\users\annev\documents\github\agv_project2\agv_project2\agv_project_deel2\navigatie_lib.h
+	<avr/io.h>
+	<util/delay.h>
+	"init.h"
+	"us_sensor_lib.h"
+	"motor_lib.h"
+
+1782068590 source:c:\users\annev\documents\github\agv_project2\agv_project2\agv_project_deel2\us_sensor_lib.c
+	<avr/io.h>
+	<avr/interrupt.h>
+	<util/delay.h>
+	"communicatie_lib.h"
+	"init.h"
+	"motor_lib.h"
+	"navigatie_lib.h"
+	"rfid_module_lib.h"
+	"us_sensor_lib.h"
+
+1782069002 source:c:\users\annev\documents\github\agv_project2\agv_project2\agv_project_deel2\main.c
+	<avr/io.h>
+	<avr/interrupt.h>
+	<util/delay.h>
+	"communicatie_lib.h"
+	"init.h"
+	"motor_lib.h"
+	"navigatie_lib.h"
+	"rfid_module_lib.h"
+	"us_sensor_lib.h"
+
+1782069029 source:c:\users\annev\documents\github\agv_project2\agv_project2\agv_project_deel2\rfid_module_lib.c
+	<avr/io.h>
+	<avr/interrupt.h>
+	<util/delay.h>
+	"communicatie_lib.h"
+	"init.h"
+	"motor_lib.h"
+	"navigatie_lib.h"
+	"rfid_module_lib.h"
+	"us_sensor_lib.h"
+
+1782069029 c:\users\annev\documents\github\agv_project2\agv_project2\agv_project_deel2\communicatie_lib.h
+

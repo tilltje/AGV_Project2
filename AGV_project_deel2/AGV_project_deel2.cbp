@@ -72,6 +72,10 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="navigatie_lib.h" />
+		<Unit filename="rfid_module_lib.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="rfid_module_lib.h" />
 		<Unit filename="us_sensor_lib.c">
 			<Option compilerVar="CC" />
 		</Unit>

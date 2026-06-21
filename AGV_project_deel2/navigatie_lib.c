@@ -1,4 +1,12 @@
+#include <avr/io.h>
+#include <avr/interrupt.h>
+#include <util/delay.h>
+#include "communicatie_lib.h"
+#include "init.h"
+#include "motor_lib.h"
 #include "navigatie_lib.h"
+#include "rfid_module_lib.h"
+#include "us_sensor_lib.h"
 
 float percentageSteering_R(int temp) //int diffAfstand
 {
@@ -25,6 +33,7 @@ void padNavigerenNorm(void)
     static unsigned int afstandL = 0;
     static unsigned int afstand_R = 0;
     int count = 0;
+    int rfid_module_teller = 0;
     motor_config(VOORUIT, LINKS);
     motor_config(VOORUIT, RECHTS);
 
@@ -32,6 +41,23 @@ void padNavigerenNorm(void)
     motor_R(1.0);
     while (wandenWeg < 2)
     {
+        /// onderstaande stukje toegevoegd voor rfid module
+        if (((MODNUMMER_PIN & (1 << MODNUMMER)) == 0) && ((NEXT_MOD_PIN & (1 << NEXT_MOD)) != 0)) {
+            motor_L(0.0);
+            motor_R(0.0);
+            acknowledge_agv();
+
+            TCNT1 = 0;
+            while (rfid_module_teller < 2) { // 2 sec wachten, elke cycle duurt ongeveer 1 sec
+                if (TIFR1 & (1 << TOV1)) {
+                    TIFR1 = (1 << TOV1);
+                    rfid_module_teller++;
+                }
+            }
+
+        }
+
+
         afstandL = ultrasoonAfstand_L_VOORUIT();
         //afstandL = ultrasoonAfstand_L_VOOR();
         afstand_R = ultrasoonAfstand_R_VOORUIT();
