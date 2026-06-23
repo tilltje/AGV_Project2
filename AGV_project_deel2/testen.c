@@ -49,18 +49,19 @@ void test(void){
     }
 }
 
-void test_versturen(void){
+/*
+void test_versturen(void){ //module
     int released = 1;
     if (((PINF & (1 << PF1)) == 0) && released == 1){
-        NEXT_AGV_PORT |= (1 << NEXT_AGV);
+        NEXT_AGV_PORT |= (1 << NEXT_AGV); // == next module port
         released = 0;
     }
     else{released = 1;}
-}
+}*/
 
 
-void test_ontvang(void){
-    if (((NEXT_MOD_PIN & (1 << NEXT_MOD)) != 0)){
+void test_ontvang(void){ //agv
+    if (((NEXT_MOD_PIN & (1 << NEXT_MOD)) != 0)){ //input vanuit module
           PORTB &= ~(1 << PB7);
           _delay_ms(500);
           acknowledge_agv();
