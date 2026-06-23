@@ -83,10 +83,10 @@
 #define NEXT_MOD_PORT              PORTG
 #define NEXT_MOD_PIN               PING
 
-#define ACK_MOD                    PG2      // Arduino Pin 39
-#define ACK_MOD_DDR                DDRG
-#define ACK_MOD_PORT               PORTG
-#define ACK_MOD_PIN                PING
+#define ACK_AGV                    PG2      // Arduino Pin 39
+#define ACK_AGV_DDR                DDRG
+#define ACK_AGV_PORT               PORTG
+//#define ACK_AGV_PIN                PING
 
 #define LIJN                       PD7      // Arduino Pin 38
 #define LIJN_DDR                   DDRD
@@ -96,9 +96,10 @@
 #define NEXT_AGV_DDR               DDRC
 #define NEXT_AGV_PORT              PORTC
 
-#define ACK_AGV                    PD0      //Arduino Pin 21 (externe interrupt)
-#define ACK_AGV_DDR                DDRD
-#define ACK_AGV_PORT               PORTD
+#define ACK_MOD                    PD0      //Arduino Pin 21 (externe interrupt)
+#define ACK_MOD_DDR                DDRD
+#define ACK_MOD_PORT               PORTD
+#define ACK_MOD_PIN                PIND
 
 /// OVERIG ///
 #define TRUE 1

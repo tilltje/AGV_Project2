@@ -12,6 +12,7 @@
 void acknowledge_agv(void) {
     ACK_AGV_PORT |= (1 << ACK_AGV);
     TCNT3 = 0;
+    TIFR3 = (1 << TOV3);
     TIMSK3 |= (1 << TOIE3);
 }
 

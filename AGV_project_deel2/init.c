@@ -10,8 +10,11 @@
 
 ///deze interrupt is nieuw!
 ISR(INT0_vect) { //module heeft commando geacknowledged
-    NEXT_MOD_PORT &= ~(1 << NEXT_MOD);
+    NEXT_AGV_PORT &= ~(1 << NEXT_AGV);
     LIJN_PORT &= ~(1 << LIJN);
+    PORTB &= ~(1 << PB7);
+    _delay_ms(500);
+    PORTB |= (1 << PB7);
 }
 
 ISR(INT4_vect){
@@ -102,7 +105,11 @@ void init_communicatie(void){
     EIMSK |= (1 << INT0); // interrupt 0 (pin 21) aanzetten
     EICRA |= (1 << ISC01) | (1 << ISC00); // interrupt 0 (pin 21), interrupt op rising edge
 
+    // TIMER 3
+    TCCR3B = (0 << CS32)|(1 << CS31)|(0 << CS30);
 }
+
+
 
 
 void init(void){

@@ -60,11 +60,31 @@ void test_versturen(void){ //module
 }*/
 
 
-void test_ontvang(void){ //agv
-    if (((NEXT_MOD_PIN & (1 << NEXT_MOD)) != 0)){ //input vanuit module
-          PORTB &= ~(1 << PB7);
-          _delay_ms(500);
-          acknowledge_agv();
+void test_AGV_ontvang(void){ //agv
+    static int test = 1;
+    if ((NEXT_MOD_PIN & (1 << NEXT_MOD)) != 0 && test == 1){ //input vanuit module
+        //ACK_AGV_PORT &= ~(1 << ACK_AGV);
+        PORTB &= ~(1 << PB7);
+        _delay_ms(1000);
+        //PORTA |= (1 << PA4);
+
+        acknowledge_agv();
+
+        //ACK_AGV_PORT |= (1 << ACK_AGV);
+        test = 0;
     }
-    else{PORTB |= (1 << PB7);}
+    else if((NEXT_MOD_PIN & (1 << NEXT_MOD)) == 0 && test == 0){
+        PORTB |= (1 << PB7);
+        test = 1;
+    }
+}
+
+void test_module_versturen(void){ //module
+    int released = 1;
+    if (((PINF & (1 << PF1)) == 0) && (released == 1)) {
+        NEXT_AGV_PORT |= (1 << NEXT_AGV);
+        released = 0;
+        ////_delay_ms(1000);
+        //NEXT_MOD_PORT &= ~(1 << NEXT_MOD);
+    }
 }

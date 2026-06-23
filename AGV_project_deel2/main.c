@@ -25,16 +25,21 @@ int main(void)
 {
     /// hier komt de code voor de AGV ///
     init();
+    /*
     init_test();
 
+    DDRA |= (1 << PA4);
+    PORTA &= ~(1 << PA4);
+
     while(1){
-        test_ontvang();
+        test_AGV_ontvang();
+        test_module_versturen();
     }
+    //*/
 
 
 
 
-/*
     while(1){
         /// TILMODULE ///
         if (!(MODNUMMER_PIN & (1 << MODNUMMER))){
@@ -47,5 +52,5 @@ int main(void)
     }
 
     return 0;
-*/
+    //*/
 }
