@@ -41,6 +41,12 @@
 #define US_TRIG_R_ACHTER_DDR       DDRC
 #define US_TRIG_R_ACHTER_PORT      PORTC
 
+/// IR LIJNDETECTIE ///
+#define IR_lijdetectie             PE4      // Arduino pin 2
+#define IR_lijdetectie_DDR         DDRE
+#define IR_lijdetectie_PORT        PORTE
+#define IR_lijdetectie_PIN         PINE
+
 /// H-BRUG ///
 #define PWM_R                      PL5      // Arduino pin 44
 #define PWM_R_DDR                  DDRL
@@ -94,9 +100,15 @@
 #define ACK_AGV_DDR                DDRD
 #define ACK_AGV_PORT               PORTD
 
+/// OVERIG ///
+#define TRUE 1
+#define FALSE 0
+
+
 /// FUNCTIONS ///
 void init_rfid_module(void);
 void init_us_sensor(void);
+void init_lijndetectieIR(void);
 void init_h_brug_dual(void);
 void init_communicatie(void);
 void init(void);

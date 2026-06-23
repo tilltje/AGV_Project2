@@ -9,7 +9,7 @@
 #include "us_sensor_lib.h"
 
 
-uint16_t ultrasoonAfstand_R_VOORUIT(void)
+uint16_t ultrasoonAfstand_R_VOOR(void)
 {
     // 1. Trigger
     US_TRIG_R_VOOR_PORT &= ~(1 << US_TRIG_R_VOOR);
@@ -36,7 +36,7 @@ uint16_t ultrasoonAfstand_R_VOORUIT(void)
     return distance;
 }
 
-uint16_t ultrasoonAfstand_L_VOORUIT(void)
+uint16_t ultrasoonAfstand_L_VOOR(void)
 {
     // 1. Trigger
     US_TRIG_L_VOOR_PORT &= ~(1 << US_TRIG_L_VOOR); //_delay_us(2);
@@ -64,7 +64,7 @@ uint16_t ultrasoonAfstand_L_VOORUIT(void)
 }
 
 ///ACHTERUIT///
-uint16_t ultrasoonAfstand_R_ACHTERUIT(void)
+uint16_t ultrasoonAfstand_R_ACHTER(void)
 {
     // 1. Trigger
     US_TRIG_R_ACHTER_PORT &= ~(1 << US_TRIG_R_ACHTER);
@@ -91,7 +91,7 @@ uint16_t ultrasoonAfstand_R_ACHTERUIT(void)
     return distance;
 }
 
-uint16_t ultrasoonAfstand_L_ACHTERUIT(void)
+uint16_t ultrasoonAfstand_L_ACHTER(void)
 {
     // 1. Trigger
     US_TRIG_L_ACHTER_PORT &= ~(1 << US_TRIG_L_ACHTER); //_delay_us(2);

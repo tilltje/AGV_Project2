@@ -13,10 +13,14 @@ ISR(INT0_vect) { //module heeft commando geacknowledged
     NEXT_MOD_PORT &= ~(1 << NEXT_MOD);
 }
 
+ISR(INT4_vect){
+    lijnInterrupt(WRITE);
+}
+
 void init_rfid_module(void) { // timer voor 2 sec stilstaan
-    TCCR1B |= (1 << CS12);
-    TCCR1B &= ~(1 << CS11);
-    TCCR1B &= ~(1 << CS10);
+    TCCR4B |= (1 << CS42);
+    TCCR4B &= ~(1 << CS41);
+    TCCR4B &= ~(1 << CS40);
 }
 
 void init_us_sensor(void){
@@ -37,6 +41,17 @@ void init_us_sensor(void){
     US_TRIG_L_VOOR_PORT &= ~(1 << US_ECHO_L_VOOR);
     US_TRIG_R_ACHTER_PORT &= ~(1 << US_ECHO_R_ACHTER);
     US_TRIG_L_ACHTER_PORT &= ~(1 << US_ECHO_L_ACHTER);
+}
+void init_lijndetectieIR(void){
+    //IR lijndetectie als INPUT configureren
+    IR_lijdetectie_DDR &= ~(1 << IR_lijdetectie);
+
+    //IR lijndetectie pull-up aanzetten
+    IR_lijdetectie_PORT &= ~(1 << IR_lijdetectie);
+
+    //interrupt
+    ///EIMSK |= (1 << INT4); // interrupt 4 (pin 2) aanzetten
+    EICRB |= (1 << ISC41) | (1 << ISC40); // interrupt 4 (pin 2), interrupt op rising edge
 }
 
 void init_h_brug_dual(void){
@@ -83,13 +98,16 @@ void init_communicatie(void){
     ACK_MOD_PORT &= ~(1 << ACK_MOD);
 
     // EXTERNE INTERRUPT ACKNOWLEDGE VAN MODULE
+    EIMSK |= (1 << INT0); // interrupt 0 (pin 21) aanzetten
     EICRA |= (1 << ISC01) | (1 << ISC00); // interrupt 0 (pin 21), interrupt op rising edge
+
 }
 
 
 void init(void){
     init_rfid_module();
     init_us_sensor();
+    init_lijndetectieIR();
     init_h_brug_dual();
     init_communicatie();
     sei();

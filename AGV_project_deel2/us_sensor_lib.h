@@ -12,9 +12,9 @@
 #define OVERFLOW    40000
 
 /// FUNCTIONS ///
-uint16_t ultrasoonAfstand_R_VOORUIT(void);
-uint16_t ultrasoonAfstand_L_VOORUIT(void);
-uint16_t ultrasoonAfstand_R_ACHTERUIT(void);
-uint16_t ultrasoonAfstand_L_ACHTERUIT(void);
+uint16_t ultrasoonAfstand_R_VOOR(void);
+uint16_t ultrasoonAfstand_L_VOOR(void);
+uint16_t ultrasoonAfstand_R_ACHTER(void);
+uint16_t ultrasoonAfstand_L_ACHTER(void);
 
 #endif // US_SENSOR_LIB_H_INCLUDED

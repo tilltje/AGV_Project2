@@ -1,7 +1,10 @@
 /*
-Timer 1 gebruikt voor 2 sec stilstaan rfid module
+Timer 0 NOG NIET
+Timer 1 gebruikt voor us sensoren
 Timer 2 gebruikt voor bochten
 Timer 3 gebruikt voor acknowledge agv
+Timer 4 gebruikt voor 2 sec stilstaan rfid module
+Timer 5 gebruikt voor motoren
 
 Externe interrupt: INT0 / arduino pin 21
  */
