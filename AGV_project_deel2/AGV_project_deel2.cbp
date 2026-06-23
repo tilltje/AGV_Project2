@@ -76,6 +76,10 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="rfid_module_lib.h" />
+		<Unit filename="testen.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="testen.h" />
 		<Unit filename="us_sensor_lib.c">
 			<Option compilerVar="CC" />
 		</Unit>

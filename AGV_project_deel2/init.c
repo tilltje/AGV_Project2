@@ -11,6 +11,7 @@
 ///deze interrupt is nieuw!
 ISR(INT0_vect) { //module heeft commando geacknowledged
     NEXT_MOD_PORT &= ~(1 << NEXT_MOD);
+    LIJN_PORT &= ~(1 << LIJN);
 }
 
 ISR(INT4_vect){

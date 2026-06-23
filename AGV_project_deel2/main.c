@@ -18,13 +18,23 @@ Externe interrupt: INT0 / arduino pin 21
 #include "navigatie_lib.h"
 #include "rfid_module_lib.h"
 #include "us_sensor_lib.h"
+#include "testen.h"
 
 
 int main(void)
 {
     /// hier komt de code voor de AGV ///
     init();
+    init_test();
 
+    while(1){
+        test_ontvang();
+    }
+
+
+
+
+/*
     while(1){
         /// TILMODULE ///
         if (!(MODNUMMER_PIN & (1 << MODNUMMER))){
@@ -37,4 +47,5 @@ int main(void)
     }
 
     return 0;
+*/
 }
