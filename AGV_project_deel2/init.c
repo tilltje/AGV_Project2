@@ -55,7 +55,7 @@ void init_lijndetectieIR(void){
 
     //interrupt
     ///EIMSK |= (1 << INT4); // interrupt 4 (pin 2) aanzetten
-    EICRB |= (1 << ISC41) | (1 << ISC40); // interrupt 4 (pin 2), interrupt op rising edge
+    //EICRB |= (1 << ISC41) | (1 << ISC40); // interrupt 4 (pin 2), interrupt op rising edge
 }
 
 void init_h_brug_dual(void){

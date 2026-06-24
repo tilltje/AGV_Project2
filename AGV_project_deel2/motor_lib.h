@@ -11,7 +11,7 @@
 #define TOP_VALUE                   40000UL
 #define RESET_VALUE_TIMER1          59286UL
 
-#define PWM TOP_VALUE*0.75
+#define PWM TOP_VALUE*1
 
 /// FUNCTIONS ///
 void motor_R(float factor);

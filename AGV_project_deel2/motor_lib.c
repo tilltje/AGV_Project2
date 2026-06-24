@@ -13,6 +13,7 @@ void motor_R(float factor)
     int motor_PWM_R = PWM * factor;
     if (motor_PWM_R >= TOP_VALUE) motor_PWM_R = TOP_VALUE;
     OCR5C = motor_PWM_R;
+
 }
 
 /// IFSTATEMENT VOOR PWM 0 EN 100

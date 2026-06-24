@@ -26,7 +26,6 @@ int main(void)
     /// hier komt de code voor de AGV ///
     init();
 
-    _delay_ms(1000);
     /*
     init_test();
 
@@ -38,6 +37,12 @@ int main(void)
         test_module_versturen();
     }
     //*/
+
+    DDRH |= (1 << PH4);
+    PORTH |= (1 << PH4);
+    _delay_ms(1000);
+
+
     motor_config(VOORUIT, RECHTS);
     motor_config(VOORUIT, LINKS);
 
