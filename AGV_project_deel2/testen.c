@@ -82,7 +82,7 @@ void test_AGV_ontvang(void){ //agv
 void test_module_versturen(void){ //module
     int released = 1;
     if (((PINF & (1 << PF1)) == 0) && (released == 1)) {
-        NEXT_AGV_PORT |= (1 << NEXT_AGV);
+//        NEXT_AGV_PORT |= (1 << NEXT_AGV);
         released = 0;
         ////_delay_ms(1000);
         //NEXT_MOD_PORT &= ~(1 << NEXT_MOD);

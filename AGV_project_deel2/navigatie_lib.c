@@ -33,13 +33,13 @@ void padNavigerenNorm(void)
     static unsigned int afstand_L = 0;
     static unsigned int afstand_R = 0;
     int rfid_module_teller = 0;
-    lijnInterrupt(RESET);
+    //lijnInterrupt(RESET);
     motor_config(VOORUIT, LINKS);
     motor_config(VOORUIT, RECHTS);
 
     motor_L(1.0);
     motor_R(1.0);
-    while (wandenWeg < 2 && lijnInterrupt(READ)){
+    while (wandenWeg < 2 /*&& lijnInterrupt(READ)*/){
         /// onderstaande stukje toegevoegd voor rfid module
         if (((MODNUMMER_PIN & (1 << MODNUMMER)) == 0) && ((NEXT_MOD_PIN & (1 << NEXT_MOD)) != 0)){
             motor_L(0.0);

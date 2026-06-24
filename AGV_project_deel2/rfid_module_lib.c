@@ -14,7 +14,7 @@ void rfid_module(void) {
         // niks doen
     }
     acknowledge_agv(); // acknowledgen naar module dat we gaan starten
-    padNavigerenNorm();
+    //padNavigerenNorm();
     NEXT_AGV_PORT |= (1 << NEXT_AGV); // bocht bereikt
     kerenR(); // bocht
     /// stoppen in vak

@@ -25,6 +25,8 @@ int main(void)
 {
     /// hier komt de code voor de AGV ///
     init();
+
+    _delay_ms(1000);
     /*
     init_test();
 
@@ -36,18 +38,27 @@ int main(void)
         test_module_versturen();
     }
     //*/
+    motor_config(VOORUIT, RECHTS);
+    motor_config(VOORUIT, LINKS);
+
+    motor_L(1.0);
+    motor_R(1.0);
+
+    while(1){
+        padNavigerenNorm();
+    }
 
 
-
+/*
 
     while(1){
         /// TILMODULE ///
-        if (!(MODNUMMER_PIN & (1 << MODNUMMER))){
+        if (MODNUMMER_PIN & (1 << MODNUMMER)){
             // TILMODULE
         }
         /// RFID ///
         else{ //modnummer laag
-            rfid_module();
+            //rfid_module();
         }
     }
 
