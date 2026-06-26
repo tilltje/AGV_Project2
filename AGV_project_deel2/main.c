@@ -1,72 +1,25 @@
 /*
-Timer 0 NOG NIET
-Timer 1 gebruikt voor us sensoren
-Timer 2 gebruikt voor bochten
-Timer 3 gebruikt voor acknowledge agv
-Timer 4 gebruikt voor 2 sec stilstaan rfid module
-Timer 5 gebruikt voor motoren
-
-Externe interrupt: INT0 / arduino pin 21
  */
-
+/// INCLUDES ///
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include <util/delay.h>
-#include "communicatie_lib.h"
+#include <stdint.h>
 #include "init.h"
 #include "motor_lib.h"
 #include "navigatie_lib.h"
 #include "rfid_module_lib.h"
 #include "us_sensor_lib.h"
-#include "testen.h"
 
-
+/// FUNCTIES ///
 int main(void)
 {
-    /// hier komt de code voor de AGV ///
-    init();
+    init_function();
 
-    /*
-    init_test();
-
-    DDRA |= (1 << PA4);
-    PORTA &= ~(1 << PA4);
-
-    while(1){
-        test_AGV_ontvang();
-        test_module_versturen();
-    }
-    //*/
-
-    DDRH |= (1 << PH4);
-    PORTH |= (1 << PH4);
-    _delay_ms(1000);
-
-
-    motor_config(VOORUIT, RECHTS);
-    motor_config(VOORUIT, LINKS);
-
-    motor_L(1.0);
-    motor_R(1.0);
-
-    while(1){
-        padNavigerenNorm();
-    }
-
-
-/*
-
-    while(1){
-        /// TILMODULE ///
-        if (MODNUMMER_PIN & (1 << MODNUMMER)){
-            // TILMODULE
-        }
-        /// RFID ///
-        else{ //modnummer laag
-            //rfid_module();
-        }
+    while(1)
+    {
+        rfid_module();
     }
 
     return 0;
-    //*/
 }

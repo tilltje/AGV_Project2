@@ -1,26 +1,26 @@
+/// INCLUDES ///
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include <util/delay.h>
-#include "communicatie_lib.h"
+#include <stdint.h>
 #include "init.h"
 #include "motor_lib.h"
 #include "navigatie_lib.h"
 #include "rfid_module_lib.h"
 #include "us_sensor_lib.h"
 
+/// FUNCTIES ///
+
 void motor_R(float factor)
 {
     int motor_PWM_R = PWM * factor;
     if (motor_PWM_R >= TOP_VALUE) motor_PWM_R = TOP_VALUE;
     OCR5C = motor_PWM_R;
-
 }
-
-/// IFSTATEMENT VOOR PWM 0 EN 100
 
 void motor_L(float factor)
 {
-    int motor_PWM_L = PWM * factor;
+    int motor_PWM_L = PWM * factor*0.8;
     if (motor_PWM_L >= TOP_VALUE) motor_PWM_L = TOP_VALUE;
     OCR5A = motor_PWM_L;
 }

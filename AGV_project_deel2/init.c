@@ -1,64 +1,135 @@
+/// INCLUDES ///
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include <util/delay.h>
-#include "communicatie_lib.h"
+#include <stdint.h>
 #include "init.h"
 #include "motor_lib.h"
 #include "navigatie_lib.h"
 #include "rfid_module_lib.h"
 #include "us_sensor_lib.h"
 
-///deze interrupt is nieuw!
-ISR(INT0_vect) { //module heeft commando geacknowledged
-    NEXT_AGV_PORT &= ~(1 << NEXT_AGV);
-    LIJN_PORT &= ~(1 << LIJN);
-    PORTB &= ~(1 << PB7);
-    _delay_ms(500);
-    PORTB |= (1 << PB7);
-}
+/// FUNCTIES ///
 
+volatile int lijnDetectie = 0;
+
+//lijndetectie
 ISR(INT4_vect){
-    lijnInterrupt(WRITE);
+   if(lijnDetectie==1){
+        //motoren even uit
+        motor_L(0.0);
+        motor_R(0.0);
+        timer_ms(50);
+
+        //motoren instellen om achteruit te rijden
+        motor_config(ACHTERUIT,LINKS);
+        motor_config(ACHTERUIT,RECHTS);
+        timer_ms(500);
+
+        // een stukje achteruit rijden
+        motor_L(0.75);
+        motor_R(0.75);
+        timer_ms(500);
+        while(1){
+            motor_L(0.0);
+            motor_R(0.0);
+        }
+   }
+   else{lijnDetectie = 1;}
 }
 
-void init_rfid_module(void) { // timer voor 2 sec stilstaan
-    TCCR4B |= (1 << CS42);
-    TCCR4B &= ~(1 << CS41);
-    TCCR4B &= ~(1 << CS40);
+//Stoppen voor blokje
+ISR(INT0_vect) { //module heeft commando geacknowledged
+    //rijden moet uitgaan
+    motor_L(0.0);
+    motor_R(0.0);
+    timer_s(2);
 }
 
-void init_us_sensor(void){
+void init_ultrasoon_sensor(void)
+{
     //ULTRASOON Echo als INPUT configureren
-    US_ECHO_R_VOOR_DDR &= ~(1 << US_ECHO_R_VOOR);
-    US_ECHO_L_VOOR_DDR &= ~(1 << US_ECHO_L_VOOR);
-    US_ECHO_R_ACHTER_DDR &= ~(1 << US_ECHO_R_ACHTER);
-    US_ECHO_L_ACHTER_DDR &= ~(1 << US_ECHO_L_ACHTER);
+    ULTRASOON_ECHO_R_DDR &= ~(1 << ULTRASOON_ECHO_R);
+    ULTRASOON_ECHO_L_DDR &= ~(1 << ULTRASOON_ECHO_L);
 
     //ULTRASOON Trigger als OUTPUT configureren
-    US_TRIG_R_VOOR_DDR |= (1 << US_TRIG_R_VOOR);
-    US_TRIG_L_VOOR_DDR |= (1 << US_TRIG_L_VOOR);
-    US_TRIG_R_ACHTER_DDR |= (1 << US_TRIG_R_ACHTER);
-    US_TRIG_L_ACHTER_DDR |= (1 << US_TRIG_L_ACHTER);
+    ULTRASOON_TRIGGER_R_DDR |= (1 << ULTRASOON_TRIGGER_R);
+    ULTRASOON_TRIGGER_L_DDR |= (1 << ULTRASOON_TRIGGER_L);
 
     //ULTRASOON Echo laagzetten
-    US_TRIG_R_VOOR_PORT &= ~(1 << US_ECHO_R_VOOR);
-    US_TRIG_L_VOOR_PORT &= ~(1 << US_ECHO_L_VOOR);
-    US_TRIG_R_ACHTER_PORT &= ~(1 << US_ECHO_R_ACHTER);
-    US_TRIG_L_ACHTER_PORT &= ~(1 << US_ECHO_L_ACHTER);
-}
-void init_lijndetectieIR(void){
-    //IR lijndetectie als INPUT configureren
-    IR_lijdetectie_DDR &= ~(1 << IR_lijdetectie);
-
-    //IR lijndetectie pull-up aanzetten
-    IR_lijdetectie_PORT &= ~(1 << IR_lijdetectie);
-
-    //interrupt
-    ///EIMSK |= (1 << INT4); // interrupt 4 (pin 2) aanzetten
-    //EICRB |= (1 << ISC41) | (1 << ISC40); // interrupt 4 (pin 2), interrupt op rising edge
+    ULTRASOON_TRIGGER_R_PORT &= ~(1 << ULTRASOON_ECHO_R);
+    ULTRASOON_TRIGGER_L_PORT &= ~(1 << ULTRASOON_ECHO_L);
 }
 
-void init_h_brug_dual(void){
+void init_infrarood_sensor(void)
+{
+
+    //INFRAROOD AGV als input configureren
+    INFRAROOD_AGV_R_DDR &= ~(1 << INFRAROOD_AGV_R);
+    INFRAROOD_AGV_L_DDR &= ~(1 << INFRAROOD_AGV_L);
+
+    // Infrarood module
+    INFRAROOD_MODULE_R_DDR &= ~(1 << INFRAROOD_MODULE_R);
+    INFRAROOD_MODULE_ENABLE_R_DDR |= (1 << INFRAROOD_MODULE_ENABLE_R);
+    INFRAROOD_MODULE_L_DDR &= ~(1 << INFRAROOD_MODULE_L);
+    INFRAROOD_MODULE_ENABLE_L_DDR |= (1 << INFRAROOD_MODULE_ENABLE_L);
+
+    // Infrarood enable uitzetten
+    INFRAROOD_MODULE_ENABLE_R_PORT &= ~(1 << INFRAROOD_MODULE_ENABLE_R);
+    INFRAROOD_MODULE_ENABLE_L_PORT &= ~(1 << INFRAROOD_MODULE_ENABLE_L);
+
+    //interrupt infrarood detectiesensor
+    EICRB |= (1 << ISC41);
+    EICRB |= (1 << ISC40);
+    EICRB |= (1 << ISC51);
+    EICRB &= ~(1 << ISC50);
+
+    //EIMSK |= (1 << INT4);
+    EIMSK |= (1 << INT5);
+
+    TCCR0B |= (1 << CS02);
+    TCCR0B &= ~(1 << CS01);
+    TCCR0B |= (1 << CS00);
+
+    TCCR3A = 0;
+    TCCR3B |= (1 << CS32)|(0 << CS31)|(0 << CS30);
+
+    TCCR4A = 0;
+    TCCR4B |= (1 << CS42)|(0 << CS41)|(0 << CS40);
+}
+
+void init_knopjes(void)
+{
+    //KNOPJES als input configuren
+    KNOP_1_DDR &= ~(1 << KNOP_1);
+    KNOP_2_DDR &= ~(1 << KNOP_2);
+    KNOP_3_DDR &= ~(1 << KNOP_3);
+    KNOP_4_DDR &= ~(1 << KNOP_4);
+    KNOP_5_DDR &= ~(1 << KNOP_5);
+    KNOP_6_DDR &= ~(1 << KNOP_6);
+
+    //KNOPJES pull-up aanzetten
+    KNOP_1_PORT |= (1 << KNOP_1);
+    KNOP_2_PORT |= (1 << KNOP_2);
+    KNOP_3_PORT |= (1 << KNOP_3);
+    KNOP_4_PORT |= (1 << KNOP_4);
+    KNOP_5_PORT |= (1 << KNOP_5);
+    KNOP_6_PORT |= (1 << KNOP_6);
+}
+
+void init_led(void)
+{
+    //LED als output configuren
+    LED_1_DDR |= (1 << LED_1);
+    LED_2_DDR |= (1 << LED_2);
+
+    //LED hoog zetten
+    LED_1_PORT |= (1 << LED_1);
+    LED_2_PORT |= (1 << LED_2);
+}
+
+void init_h_brug_dual(void)
+{
     //PWM als output configureren
     PWM_R_DDR |= (1 << PWM_R);
     PWM_L_DDR |= (1 << PWM_L);
@@ -78,6 +149,36 @@ void init_h_brug_dual(void){
     PWM_IN_2_PORT &= ~(1 << PWM_IN_2); // IN 2 --> motor A = rechts
     PWM_IN_3_PORT &= ~(1 << PWM_IN_3); // IN 3 --> motor B = links
     PWM_IN_4_PORT &= ~(1 << PWM_IN_4); // IN 4 --> motor B = links
+}
+
+void init_noodstop(void)
+{
+    //NOODSTOP als input configureren
+    NOODSTOP_DDR &= ~(1 << NOODSTOP);
+}
+
+void init_timer_PWM(void)
+{
+    ICR5 = TOP_VALUE;
+    TCCR5A = (1 << WGM51) | (0 << WGM50) | (1 << COM5A1) | (0 << COM5A0) | (1 << COM5C1) | (0 << COM5C0);
+    TCCR5B = (1 << WGM53) | (1 << WGM52) | (0 << CS52) | (1 << CS51) | (0 << CS50);
+}
+
+void init_test(void)
+{
+    // Display pinnen als output
+    DDRH |= (1 << SDI_BIT) | (1 << SFTCLK_BIT);
+    DDRG |= (1 << LCHCLK_BIT);
+
+    // Timers en poorten resetten
+    PORTG &= ~(1 << LCHCLK_BIT);
+}
+
+void init_timer(void) // timer 0.1 sec
+{
+    TCNT2 = RESET_VALUE_TIMER1;
+    TCCR2A = 0;
+    TCCR2B = (1 << CS12)|(0 << CS11)|(0 << CS10);
 }
 
 void init_communicatie(void){
@@ -109,14 +210,17 @@ void init_communicatie(void){
     TCCR3B = (0 << CS32)|(1 << CS31)|(0 << CS30);
 }
 
-
-
-
-void init(void){
-    init_rfid_module();
-    init_us_sensor();
-    init_lijndetectieIR();
+void init_function(void)
+{
+    init_ultrasoon_sensor();
+    init_infrarood_sensor();
+    init_knopjes();
+    init_led();
     init_h_brug_dual();
+    init_noodstop();
+    init_timer_PWM();
+    init_timer();
+    init_test();
     init_communicatie();
     sei();
 }

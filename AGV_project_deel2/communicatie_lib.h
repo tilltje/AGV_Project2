@@ -1,7 +1,6 @@
 #ifndef COMMUNICATIE_LIB_H_INCLUDED
 #define COMMUNICATIE_LIB_H_INCLUDED
 
-
 void acknowledge_agv(void);
 
 #endif // COMMUNICATIE_LIB_H_INCLUDED
