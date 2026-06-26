@@ -1,4 +1,6 @@
-/*
+/* Code voor AGV. Bevat nu alleen de code voor de detectiemodule, omdat de tilhulp niet gerealiseerd is.
+De vervangende module die gebruikt wordt voor de wisselopdracht communiceert op dezelfde manier als de detectiemodule,
+waardoor hiervoor dezelfde code gebruikt kan worden.
  */
 /// INCLUDES ///
 #include <avr/io.h>
@@ -18,7 +20,7 @@ int main(void)
 
     while(1)
     {
-        rfid_module();
+        rfid_module(); // programma voor wanneer de detectiemodule erop staat
     }
 
     return 0;

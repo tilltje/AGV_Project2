@@ -11,6 +11,7 @@
 
 /// FUNCTIES ///
 
+// Bepaalt afstand tot rechter rand
 uint16_t ultrasoonAfstand_R(void)
 {
     // 1. Trigger
@@ -38,6 +39,7 @@ uint16_t ultrasoonAfstand_R(void)
     return distance;
 }
 
+// Bepaalt afstand tot linker rand
 uint16_t ultrasoonAfstand_L(void)
 {
     // 1. Trigger

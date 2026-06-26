@@ -11,20 +11,27 @@
 
 /// FUNCTIES ///
 
+// Bepaalt PWM-waarde voor motor rechts
 void motor_R(float factor)
 {
     int motor_PWM_R = PWM * factor;
-    if (motor_PWM_R >= TOP_VALUE) motor_PWM_R = TOP_VALUE;
+    if (motor_PWM_R >= TOP_VALUE) {
+        motor_PWM_R = TOP_VALUE;
+    }
     OCR5C = motor_PWM_R;
 }
 
+// Bepaalt PWM-waarde voor motor links
 void motor_L(float factor)
 {
-    int motor_PWM_L = PWM * factor*0.8;
-    if (motor_PWM_L >= TOP_VALUE) motor_PWM_L = TOP_VALUE;
+    int motor_PWM_L = PWM * factor*0.8; // 0.8 om te compenseren voor kleine afwijking motor
+    if (motor_PWM_L >= TOP_VALUE) {
+        motor_PWM_L = TOP_VALUE;
+    }
     OCR5A = motor_PWM_L;
 }
 
+// Bepaalt richting waarin motor draait
 void motor_config(int mode, int kant)
 {
     enum motor_actie actie = mode;

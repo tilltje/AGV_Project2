@@ -11,24 +11,35 @@
 
 /// FUNCTIES ///
 
-float percentageSteering_R(int temp) //int diffAfstand
+// Bepaalt snelheid rechts a.d.h.v. afstand tot rand
+float percentageSteering_R(int afstand) //int diffAfstand
 {
     static float helftPadBreedte = HALF_PAD;
     static float percentageAfwijking = 0;
-    if (helftPadBreedte < temp)  percentageAfwijking = 0;
-    else percentageAfwijking = (helftPadBreedte - temp)/helftPadBreedte;
+    if (helftPadBreedte < afstand) {
+        percentageAfwijking = 0;
+    }
+    else {
+        percentageAfwijking = (helftPadBreedte - afstand)/helftPadBreedte;
+    }
     return percentageAfwijking;
 }
 
-float percentageSteering_L(int temp) //int diffAfstand
+// Bepaalt snelheid links a.d.h.v. afstand tot rand
+float percentageSteering_L(int afstand) //int diffAfstand
 {
     static float helftPadBreedte = HALF_PAD;
     static float percentageAfwijking = 0;
-    if (helftPadBreedte < temp)  percentageAfwijking = 0;
-    else percentageAfwijking = (helftPadBreedte - temp)/helftPadBreedte;
+    if (helftPadBreedte < afstand) {
+        percentageAfwijking = 0;
+    }
+    else {
+        percentageAfwijking = (helftPadBreedte - afstand)/helftPadBreedte;
+    }
     return percentageAfwijking;
 }
 
+// Controleert afstanden tot wanden en past op basis daarvan snelheden aan
 void padNavigeren(int kant)
 {
     int wandenWeg = 0;
@@ -41,13 +52,14 @@ void padNavigeren(int kant)
 
     motor_L(1.0);
     motor_R(1.0);
-    while (wandenWeg < 2) // Blijft in de while tot dat de wanden weg zijn.
+    while (wandenWeg < 2) // Blijft in de while totdat de wanden weg zijn.
     {
-        afstandL = ultrasoonAfstand_L();
         afstandL = ultrasoonAfstand_L();
         afstand_R = ultrasoonAfstand_R();
 
-        if ((ultrasoonAfstand_R() > VERWEG) || (ultrasoonAfstand_L() > VERWEG)) wandenWeg++;
+        if ((ultrasoonAfstand_R() > VERWEG) || (ultrasoonAfstand_L() > VERWEG)) {
+            wandenWeg++;
+        }
         else
         {
             wandenWeg = 0;
@@ -73,6 +85,7 @@ void padNavigeren(int kant)
     motor_L(1.0);
 }
 
+// Bocht naar rechts,
 void kerenR(void)
 {
     int temp = 0;
@@ -92,46 +105,4 @@ void kerenR(void)
 
         if (ultrasoonAfstand_L() < 20) {temp = 1;}
     }
-}
-
-void timer_ms(int aantal){
-    TCNT2 = 6;
-    TCCR2A = 0;
-    TCCR2B = (0 << CS22)|(1 << CS21) | (1 << CS20);
-    int count = 0;
-    int timer_klaar = FALSE;
-
-    while(timer_klaar == FALSE)
-    if (TIFR2 & (1 << TOV2))
-        {
-            if (++count >= aantal)
-            {
-                TIFR2 = (1 << TOV2);
-                TCNT2 = 6;
-                timer_klaar = TRUE;
-            }
-            TIFR2 = (1 << TOV2);
-            TCNT2 = 6;
-        }
-}
-
-void timer_s(int aantal){
-    TCNT4 = 3036;
-    TCCR4A = 0;
-    TCCR4B = (1 << CS42)|(0 << CS41) | (0 << CS40);
-    int count = 0;
-    int timer_klaar = FALSE;
-
-    while(timer_klaar == FALSE)
-    if (TIFR4 & (1 << TOV4))
-        {
-            if (++count >= aantal)
-            {
-                TIFR4 = (1 << TOV4);
-                TCNT4 = 6;
-                timer_klaar = TRUE;
-            }
-            TIFR4 = (1 << TOV4);
-            TCNT4 = 6;
-        }
 }

@@ -11,14 +11,13 @@
 
 /// FUNCTIES ///
 
+// Programma voor detectiemodule
 void rfid_module(void) {
-    while ((NEXT_MOD_PIN & (1 << NEXT_MOD)) == 0) {
-        // niks doen
+    while ((NEXT_MOD_PIN & (1 << NEXT_MOD)) == 0) { // Wachten tot knop wordt ingedrukt
     }
-    padNavigeren(LINKS);
-    NEXT_AGV_PORT |= (1 << NEXT_AGV);   // bocht bereikt
-    EIMSK |= (1 << INT4);
-    kerenR();                           // bocht
-    padNavigeren(LINKS);
-    /// stoppen in vak
+    padNavigeren(LINKS); // Rijden, links of rechts maakt hier niet uit
+    NEXT_AGV_PORT |= (1 << NEXT_AGV);   // Bocht is bereikt, dus aan module doorgeven dat die moet stoppen met detecteren
+    EIMSK |= (1 << INT4);               // Lijndetectie interrupt aanzetten
+    kerenR();                           // Bocht uitvoeren
+    padNavigeren(LINKS); // Rijden, links of rechts maakt hier niet uit
 }
